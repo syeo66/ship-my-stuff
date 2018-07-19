@@ -38,7 +38,6 @@
     "react-dom": "^16.4.1",
     "rxjs": "^6.2.2",
     "truffle-contract": "^3.0.6",
-    "uport-connect": "^0.7.3",
     "web3": "^0.20.0"
   }
 }
