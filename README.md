@@ -48,7 +48,7 @@ Then you should be able to see the interface on `http://localhost:3000/`
 
 ## Public availability
 The interface is available in public at [https://ipfs.io/ipns/ship-my-stuff.com/](https://ipfs.io/ipns/ship-my-stuff.com/) or - because ipns is rather slow - also hosted at [https://ship-my-stuff.com/](https://ship-my-stuff.com/).
-There is a contract available on the Rinkeby network at [sms.redochsenbein.eth](https://etherscan.io/address/sms.redochsenbein.eth).
+There is a contract available on the Rinkeby network at [0xacc26d36721192206f3aff0b82b549bf3ebb4e06](https://etherscan.io/address/0xacc26d36721192206f3aff0b82b549bf3ebb4e06).
 
 ## Configuration
 By clicking on the connection indicator on the top right you can open a configuration screen which allows you to set the IPFS node to be used. If you are not using MetaMask you can also set the Ethereum node url and your unlocked account address.
