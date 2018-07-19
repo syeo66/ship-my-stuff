@@ -77,6 +77,7 @@ contract('TransportMarket', function(accounts) {
         assert.equal(expectedEventResult.price, logPrice, "LogParcelCreated event price property not emitted, check createParcel method");
     });
 
+    // testing if the Haltable modifiers are implemented correctly
     it("should not be able to create a parcel if contract is haltet", async () => {
         const transportMarket = await TransportMarket.deployed();
 
@@ -94,6 +95,7 @@ contract('TransportMarket', function(accounts) {
         transportMarket.setHalted(false);
     });
 
+    // testing if the Depreciable modifiers are implemented correctly
     it("should not be able to create a parcel if contract is deprecated", async () => {
         const transportMarket = await TransportMarket.deployed();
 
@@ -111,6 +113,8 @@ contract('TransportMarket', function(accounts) {
         transportMarket.setDeprecated(false);
     });
 
+    // The sender should not be allowed to take a parcel. This is only
+    // possible for a hauler => a different account than the sender.
     it ("should not allow the sender to take a parcel", async () => {
         const transportMarket = await TransportMarket.deployed();
 
@@ -124,6 +128,7 @@ contract('TransportMarket', function(accounts) {
         assert.equal(true, isFailed, "takeParcel should have failed but it didn't, check the modifiers");
     });
 
+    // The hauler can 'take' a parcel. This should be flagged in the parcel.
     it("should let the hauler mark the parcel as taken", async () => {
         const transportMarket = await TransportMarket.deployed();
 
@@ -151,6 +156,7 @@ contract('TransportMarket', function(accounts) {
         assert.equal(expectedEventResult.price, logPrice, "LogParcelTaken event price property not emitted, check takeParcel method");
     });
 
+    // if the hauler has taken a parcel no one else should be able to set that flag
     it ("should not allow another one to take a taken parcel", async () => {
         const transportMarket = await TransportMarket.deployed();
 
@@ -163,6 +169,9 @@ contract('TransportMarket', function(accounts) {
         assert.equal(1, parcelState, "takeParcel should have state taken, check the method");
     });
 
+    // the sender should be able to set the flag 'PickedUp' after the
+    // hauler has taken the parcel. Also testing that a parcel can't be set
+    // to 'PickedUp' if it has the wrong state.
     it("should let the sender mark the parcel as picked up", async () => {
         const transportMarket = await TransportMarket.deployed();
 
@@ -200,6 +209,8 @@ contract('TransportMarket', function(accounts) {
         assert.equal(expectedEventResult.price, logPrice, "LogParcelPickedUp event price property not emitted, check takeParcel method");
     });
 
+    // Testing if only the recipient can confirm a delivery. The sender and
+    // the hauler should not be allowed to do that.
     it("should allow the recipient to confirm delivery", async () => {
         const transportMarket = await TransportMarket.deployed();
 
@@ -252,6 +263,7 @@ contract('TransportMarket', function(accounts) {
         assert.equal(expectedEventResult.price, logPrice, "LogParcelDelivered event price property not emitted, check takeParcel method");
     });
     
+    // The sender can cancel an offer/parcel as long as it has not yet been taken.
     it("should allow the sender to cancel a created parcel", async() => {
         const transportMarket = await TransportMarket.deployed();
 
@@ -271,6 +283,8 @@ contract('TransportMarket', function(accounts) {
         assert.equal(1, myParcels.length, "there should be only one parcel in my parcel list");
     });
 
+    // ... so we also test that: a sender should not be able to cancel
+    // a parcel that already has been taken.
     it("should not allow the sender to cancel a taken parcel", async () => {
         const newConfirmationKey = '7101b190';
         const newConfirmationHash = web3.sha3(newConfirmationKey);
@@ -292,6 +306,8 @@ contract('TransportMarket', function(accounts) {
         assert.equal(1, parcelState, "deliverParcel should have set the state, check the method");
     });
 
+    // The contract should allow accounts to withdraw their balances
+    // in the contract. Test if the money actually arrives correctly
     it("should allow to withdraw balances", async() => {
         const transportMarket = await TransportMarket.deployed();
 

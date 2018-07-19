@@ -22,7 +22,8 @@ contract DepreciableMock is Depreciable {
 contract TestDepreciable {
     DepreciableMock depreciable = new DepreciableMock();
 
-    // check the modifiers when not deprecated
+    // Check the modifiers when not deprecated because this is the main functionality
+    // the Depreciable contract delivers: a modifier based on the deprecated flag.
     function testNotDeprecated() public {
         bool expectedNotDeprecated = true; // false means it did throw an error
         bool resultNotDeprecated = address(depreciable).call(bytes4(bytes32(keccak256("getVal()"))));
@@ -35,7 +36,7 @@ contract TestDepreciable {
         Assert.equal(expectedDeprecated, resultDeprecated, "ifDeprecated should not be allowed to call.");
     }
 
-    // check the modifiers when not deprecated
+    // Check the modifiers when not deprecated
     function testDeprecated() public {
         depreciable.setDeprecated(true);
 

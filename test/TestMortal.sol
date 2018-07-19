@@ -22,6 +22,8 @@ contract TestMortal {
 
     MortalMock mortal = new MortalMock();
 
+    // Test to make sure the balance gets payed back after
+    // killing the contract
     function testKill() public {
         address(mortal).transfer(0.1 ether);
 

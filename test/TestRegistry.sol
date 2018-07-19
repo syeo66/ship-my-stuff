@@ -14,6 +14,8 @@ contract ARandomContract is Depreciable {
 contract TestRegistry {
     Registry registry = new Registry();
 
+    // testing if a new contract gets added to the registry
+    // and if the history of contracts gets stored
     function testRegister() public {
         ARandomContract contract1 = new ARandomContract();
         registry.register(contract1);

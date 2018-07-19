@@ -22,7 +22,8 @@ contract HaltableMock is Haltable {
 contract TestHaltable {
     HaltableMock depreciable = new HaltableMock();
 
-    // check the modifiers when not Halted
+    // Check the modifiers when not Halted because this is the main functionality
+    // the Haltable contract delivers: a modifier based on the halted flag.
     function testNotHalted() public {
         bool expectedNotHalted = true; // false means it did throw an error
         bool resultNotHalted = address(depreciable).call(bytes4(bytes32(keccak256("getVal()"))));
