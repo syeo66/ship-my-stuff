@@ -1,0 +1,74 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Ship my stuff - Peer-to-peer delivery service</title>
+    <link href="css/fontawesome.css" rel="stylesheet">
+    <link href="css/main.css" rel="stylesheet">
+  </head>
+  <body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <a class="navbar-brand mr-auto" href="#">Ship my stuff</a>
+        <span class="navbar-text" id="networkIndicator"><i class="fas fa-signal"></i></span>
+    </nav>
+
+    <div class="container">
+      <div id="messageContainer"></div>
+      <div class="row mt-4">
+        <div class="col-md-9">
+          <div id="accountData"></div>
+          <hr>
+          <div id="parcelList"></div>
+        </div>
+        <div class="col-md-3">
+          <h3>Received parcel</h3>
+          <div class="mb-2">You received a parcel and got a confirmation code? Enter it here to confirm receiption of the delivery.</div>
+          <div id="receivedParcelForm"></div>
+          <hr>
+          <h3>Send parcel</h3>
+          <div id="createParcelForm"></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="modal fade" id="confirmationCodeModal" tabindex="-1" role="dialog" aria-labelledby="confirmationCodeModal" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="confirmationCodeLabel">Reception confirmation code</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <h2 id="confirmationCode" class="text-center"></h2>
+            <div class="row">
+              <div class="col">Please write the code down and put it into the parcel. The recipient will need this code to confirm the reception of the parcel.</div>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="modal fade" id="configurationModal" tabindex="-1" role="dialog" aria-labelledby="configurationModal" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="configurationLabel">Network Configuration</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div id="configuration"></div>
+        </div>
+      </div>
+    </div>
+
+    <script src="js/main.bundle.js"></script>
+  </body>
+</html>

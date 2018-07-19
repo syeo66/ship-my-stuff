@@ -1,0 +1,928 @@
+{
+  "contractName": "Depreciable",
+  "abi": [
+    {
+      "constant": true,
+      "inputs": [],
+      "name": "deprecated",
+      "outputs": [
+        {
+          "name": "",
+          "type": "bool"
+        }
+      ],
+      "payable": false,
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "constant": true,
+      "inputs": [],
+      "name": "owner",
+      "outputs": [
+        {
+          "name": "",
+          "type": "address"
+        }
+      ],
+      "payable": false,
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "constant": false,
+      "inputs": [
+        {
+          "name": "_newOwner",
+          "type": "address"
+        }
+      ],
+      "name": "changeOwner",
+      "outputs": [],
+      "payable": false,
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "constant": false,
+      "inputs": [
+        {
+          "name": "_deprecated",
+          "type": "bool"
+        }
+      ],
+      "name": "setDeprecated",
+      "outputs": [],
+      "payable": false,
+      "stateMutability": "nonpayable",
+      "type": "function"
+    }
+  ],
+  "bytecode": "0x6080604052336000806101000a81548173ffffffffffffffffffffffffffffffffffffffff021916908373ffffffffffffffffffffffffffffffffffffffff16021790555060008060146101000a81548160ff02191690831515021790555034801561006a57600080fd5b506102ff8061007a6000396000f300608060405260043610610062576000357c0100000000000000000000000000000000000000000000000000000000900463ffffffff1680630e136b19146100675780638da5cb5b14610096578063a6f9dae1146100ed578063d848dee714610130575b600080fd5b34801561007357600080fd5b5061007c61015f565b604051808215151515815260200191505060405180910390f35b3480156100a257600080fd5b506100ab610172565b604051808273ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff16815260200191505060405180910390f35b3480156100f957600080fd5b5061012e600480360381019080803573ffffffffffffffffffffffffffffffffffffffff169060200190929190505050610197565b005b34801561013c57600080fd5b5061015d60048036038101908080351515906020019092919050505061025b565b005b600060149054906101000a900460ff1681565b6000809054906101000a900473ffffffffffffffffffffffffffffffffffffffff1681565b6000809054906101000a900473ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff163373ffffffffffffffffffffffffffffffffffffffff161415156101f257600080fd5b60008173ffffffffffffffffffffffffffffffffffffffff161415151561021857600080fd5b806000806101000a81548173ffffffffffffffffffffffffffffffffffffffff021916908373ffffffffffffffffffffffffffffffffffffffff16021790555050565b6000809054906101000a900473ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff163373ffffffffffffffffffffffffffffffffffffffff161415156102b657600080fd5b80600060146101000a81548160ff021916908315150217905550505600a165627a7a72305820e9eab990bb19c94293d3f296e0818a2504295146c99ad3f0fcf5b0ab538e61560029",
+  "deployedBytecode": "0x608060405260043610610062576000357c0100000000000000000000000000000000000000000000000000000000900463ffffffff1680630e136b19146100675780638da5cb5b14610096578063a6f9dae1146100ed578063d848dee714610130575b600080fd5b34801561007357600080fd5b5061007c61015f565b604051808215151515815260200191505060405180910390f35b3480156100a257600080fd5b506100ab610172565b604051808273ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff16815260200191505060405180910390f35b3480156100f957600080fd5b5061012e600480360381019080803573ffffffffffffffffffffffffffffffffffffffff169060200190929190505050610197565b005b34801561013c57600080fd5b5061015d60048036038101908080351515906020019092919050505061025b565b005b600060149054906101000a900460ff1681565b6000809054906101000a900473ffffffffffffffffffffffffffffffffffffffff1681565b6000809054906101000a900473ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff163373ffffffffffffffffffffffffffffffffffffffff161415156101f257600080fd5b60008173ffffffffffffffffffffffffffffffffffffffff161415151561021857600080fd5b806000806101000a81548173ffffffffffffffffffffffffffffffffffffffff021916908373ffffffffffffffffffffffffffffffffffffffff16021790555050565b6000809054906101000a900473ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff163373ffffffffffffffffffffffffffffffffffffffff161415156102b657600080fd5b80600060146101000a81548160ff021916908315150217905550505600a165627a7a72305820e9eab990bb19c94293d3f296e0818a2504295146c99ad3f0fcf5b0ab538e61560029",
+  "sourceMap": "51:283:5:-;;;72:10:8;49:33;;;;;;;;;;;;;;;;;;;;114:5:5;89:30;;;;;;;;;;;;;;;;;;;;51:283;8:9:-1;5:2;;;30:1;27;20:12;5:2;51:283:5;;;;;;;",
+  "deployedSourceMap": "51:283:5:-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;89:30;;8:9:-1;5:2;;;30:1;27;20:12;5:2;89:30:5;;;;;;;;;;;;;;;;;;;;;;;;;;;49:33:8;;8:9:-1;5:2;;;30:1;27;20:12;5:2;49:33:8;;;;;;;;;;;;;;;;;;;;;;;;;;;356:146;;8:9:-1;5:2;;;30:1;27;20:12;5:2;356:146:8;;;;;;;;;;;;;;;;;;;;;;;;;;;;233:99:5;;8:9:-1;5:2;;;30:1;27;20:12;5:2;233:99:5;;;;;;;;;;;;;;;;;;;;;;;;;;;;89:30;;;;;;;;;;;;;:::o;49:33:8:-;;;;;;;;;;;;;:::o;356:146::-;206:5;;;;;;;;;;;192:19;;:10;:19;;;183:29;;;;;;;;464:3;451:9;:16;;;;443:25;;;;;;;;486:9;478:5;;:17;;;;;;;;;;;;;;;;;;356:146;:::o;233:99:5:-;206:5:8;;;;;;;;;;;192:19;;:10;:19;;;183:29;;;;;;;;314:11:5;301:10;;:24;;;;;;;;;;;;;;;;;;233:99;:::o",
+  "source": "pragma solidity ^0.4.24;\n\nimport \"./Ownable.sol\";\n\ncontract Depreciable is Ownable {\n    bool public deprecated = false;\n\n    modifier ifDeprecated {require(deprecated);_;}\n    modifier ifNotDeprecated {require(!deprecated);_;}\n\n    function setDeprecated(bool _deprecated) public onlyOwner {\n        deprecated = _deprecated;\n    }\n}\n",
+  "sourcePath": "/Users/red/ethereum/ship-my-stuff/contracts/lib/Depreciable.sol",
+  "ast": {
+    "absolutePath": "/Users/red/ethereum/ship-my-stuff/contracts/lib/Depreciable.sol",
+    "exportedSymbols": {
+      "Depreciable": [
+        1294
+      ]
+    },
+    "id": 1295,
+    "nodeType": "SourceUnit",
+    "nodes": [
+      {
+        "id": 1258,
+        "literals": [
+          "solidity",
+          "^",
+          "0.4",
+          ".24"
+        ],
+        "nodeType": "PragmaDirective",
+        "src": "0:24:5"
+      },
+      {
+        "absolutePath": "/Users/red/ethereum/ship-my-stuff/contracts/lib/Ownable.sol",
+        "file": "./Ownable.sol",
+        "id": 1259,
+        "nodeType": "ImportDirective",
+        "scope": 1295,
+        "sourceUnit": 1385,
+        "src": "26:23:5",
+        "symbolAliases": [],
+        "unitAlias": ""
+      },
+      {
+        "baseContracts": [
+          {
+            "arguments": null,
+            "baseName": {
+              "contractScope": null,
+              "id": 1260,
+              "name": "Ownable",
+              "nodeType": "UserDefinedTypeName",
+              "referencedDeclaration": 1384,
+              "src": "75:7:5",
+              "typeDescriptions": {
+                "typeIdentifier": "t_contract$_Ownable_$1384",
+                "typeString": "contract Ownable"
+              }
+            },
+            "id": 1261,
+            "nodeType": "InheritanceSpecifier",
+            "src": "75:7:5"
+          }
+        ],
+        "contractDependencies": [
+          1384
+        ],
+        "contractKind": "contract",
+        "documentation": null,
+        "fullyImplemented": true,
+        "id": 1294,
+        "linearizedBaseContracts": [
+          1294,
+          1384
+        ],
+        "name": "Depreciable",
+        "nodeType": "ContractDefinition",
+        "nodes": [
+          {
+            "constant": false,
+            "id": 1264,
+            "name": "deprecated",
+            "nodeType": "VariableDeclaration",
+            "scope": 1294,
+            "src": "89:30:5",
+            "stateVariable": true,
+            "storageLocation": "default",
+            "typeDescriptions": {
+              "typeIdentifier": "t_bool",
+              "typeString": "bool"
+            },
+            "typeName": {
+              "id": 1262,
+              "name": "bool",
+              "nodeType": "ElementaryTypeName",
+              "src": "89:4:5",
+              "typeDescriptions": {
+                "typeIdentifier": "t_bool",
+                "typeString": "bool"
+              }
+            },
+            "value": {
+              "argumentTypes": null,
+              "hexValue": "66616c7365",
+              "id": 1263,
+              "isConstant": false,
+              "isLValue": false,
+              "isPure": true,
+              "kind": "bool",
+              "lValueRequested": false,
+              "nodeType": "Literal",
+              "src": "114:5:5",
+              "subdenomination": null,
+              "typeDescriptions": {
+                "typeIdentifier": "t_bool",
+                "typeString": "bool"
+              },
+              "value": "false"
+            },
+            "visibility": "public"
+          },
+          {
+            "body": {
+              "id": 1271,
+              "nodeType": "Block",
+              "src": "148:24:5",
+              "statements": [
+                {
+                  "expression": {
+                    "argumentTypes": null,
+                    "arguments": [
+                      {
+                        "argumentTypes": null,
+                        "id": 1267,
+                        "name": "deprecated",
+                        "nodeType": "Identifier",
+                        "overloadedDeclarations": [],
+                        "referencedDeclaration": 1264,
+                        "src": "157:10:5",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_bool",
+                          "typeString": "bool"
+                        }
+                      }
+                    ],
+                    "expression": {
+                      "argumentTypes": [
+                        {
+                          "typeIdentifier": "t_bool",
+                          "typeString": "bool"
+                        }
+                      ],
+                      "id": 1266,
+                      "name": "require",
+                      "nodeType": "Identifier",
+                      "overloadedDeclarations": [
+                        1402,
+                        1403
+                      ],
+                      "referencedDeclaration": 1402,
+                      "src": "149:7:5",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_function_require_pure$_t_bool_$returns$__$",
+                        "typeString": "function (bool) pure"
+                      }
+                    },
+                    "id": 1268,
+                    "isConstant": false,
+                    "isLValue": false,
+                    "isPure": false,
+                    "kind": "functionCall",
+                    "lValueRequested": false,
+                    "names": [],
+                    "nodeType": "FunctionCall",
+                    "src": "149:19:5",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_tuple$__$",
+                      "typeString": "tuple()"
+                    }
+                  },
+                  "id": 1269,
+                  "nodeType": "ExpressionStatement",
+                  "src": "149:19:5"
+                },
+                {
+                  "id": 1270,
+                  "nodeType": "PlaceholderStatement",
+                  "src": "169:1:5"
+                }
+              ]
+            },
+            "documentation": null,
+            "id": 1272,
+            "name": "ifDeprecated",
+            "nodeType": "ModifierDefinition",
+            "parameters": {
+              "id": 1265,
+              "nodeType": "ParameterList",
+              "parameters": [],
+              "src": "148:0:5"
+            },
+            "src": "126:46:5",
+            "visibility": "internal"
+          },
+          {
+            "body": {
+              "id": 1280,
+              "nodeType": "Block",
+              "src": "202:25:5",
+              "statements": [
+                {
+                  "expression": {
+                    "argumentTypes": null,
+                    "arguments": [
+                      {
+                        "argumentTypes": null,
+                        "id": 1276,
+                        "isConstant": false,
+                        "isLValue": false,
+                        "isPure": false,
+                        "lValueRequested": false,
+                        "nodeType": "UnaryOperation",
+                        "operator": "!",
+                        "prefix": true,
+                        "src": "211:11:5",
+                        "subExpression": {
+                          "argumentTypes": null,
+                          "id": 1275,
+                          "name": "deprecated",
+                          "nodeType": "Identifier",
+                          "overloadedDeclarations": [],
+                          "referencedDeclaration": 1264,
+                          "src": "212:10:5",
+                          "typeDescriptions": {
+                            "typeIdentifier": "t_bool",
+                            "typeString": "bool"
+                          }
+                        },
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_bool",
+                          "typeString": "bool"
+                        }
+                      }
+                    ],
+                    "expression": {
+                      "argumentTypes": [
+                        {
+                          "typeIdentifier": "t_bool",
+                          "typeString": "bool"
+                        }
+                      ],
+                      "id": 1274,
+                      "name": "require",
+                      "nodeType": "Identifier",
+                      "overloadedDeclarations": [
+                        1402,
+                        1403
+                      ],
+                      "referencedDeclaration": 1402,
+                      "src": "203:7:5",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_function_require_pure$_t_bool_$returns$__$",
+                        "typeString": "function (bool) pure"
+                      }
+                    },
+                    "id": 1277,
+                    "isConstant": false,
+                    "isLValue": false,
+                    "isPure": false,
+                    "kind": "functionCall",
+                    "lValueRequested": false,
+                    "names": [],
+                    "nodeType": "FunctionCall",
+                    "src": "203:20:5",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_tuple$__$",
+                      "typeString": "tuple()"
+                    }
+                  },
+                  "id": 1278,
+                  "nodeType": "ExpressionStatement",
+                  "src": "203:20:5"
+                },
+                {
+                  "id": 1279,
+                  "nodeType": "PlaceholderStatement",
+                  "src": "224:1:5"
+                }
+              ]
+            },
+            "documentation": null,
+            "id": 1281,
+            "name": "ifNotDeprecated",
+            "nodeType": "ModifierDefinition",
+            "parameters": {
+              "id": 1273,
+              "nodeType": "ParameterList",
+              "parameters": [],
+              "src": "202:0:5"
+            },
+            "src": "177:50:5",
+            "visibility": "internal"
+          },
+          {
+            "body": {
+              "id": 1292,
+              "nodeType": "Block",
+              "src": "291:41:5",
+              "statements": [
+                {
+                  "expression": {
+                    "argumentTypes": null,
+                    "id": 1290,
+                    "isConstant": false,
+                    "isLValue": false,
+                    "isPure": false,
+                    "lValueRequested": false,
+                    "leftHandSide": {
+                      "argumentTypes": null,
+                      "id": 1288,
+                      "name": "deprecated",
+                      "nodeType": "Identifier",
+                      "overloadedDeclarations": [],
+                      "referencedDeclaration": 1264,
+                      "src": "301:10:5",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_bool",
+                        "typeString": "bool"
+                      }
+                    },
+                    "nodeType": "Assignment",
+                    "operator": "=",
+                    "rightHandSide": {
+                      "argumentTypes": null,
+                      "id": 1289,
+                      "name": "_deprecated",
+                      "nodeType": "Identifier",
+                      "overloadedDeclarations": [],
+                      "referencedDeclaration": 1283,
+                      "src": "314:11:5",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_bool",
+                        "typeString": "bool"
+                      }
+                    },
+                    "src": "301:24:5",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_bool",
+                      "typeString": "bool"
+                    }
+                  },
+                  "id": 1291,
+                  "nodeType": "ExpressionStatement",
+                  "src": "301:24:5"
+                }
+              ]
+            },
+            "documentation": null,
+            "id": 1293,
+            "implemented": true,
+            "isConstructor": false,
+            "isDeclaredConst": false,
+            "modifiers": [
+              {
+                "arguments": null,
+                "id": 1286,
+                "modifierName": {
+                  "argumentTypes": null,
+                  "id": 1285,
+                  "name": "onlyOwner",
+                  "nodeType": "Identifier",
+                  "overloadedDeclarations": [],
+                  "referencedDeclaration": 1365,
+                  "src": "281:9:5",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_modifier$__$",
+                    "typeString": "modifier ()"
+                  }
+                },
+                "nodeType": "ModifierInvocation",
+                "src": "281:9:5"
+              }
+            ],
+            "name": "setDeprecated",
+            "nodeType": "FunctionDefinition",
+            "parameters": {
+              "id": 1284,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 1283,
+                  "name": "_deprecated",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 1293,
+                  "src": "256:16:5",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_bool",
+                    "typeString": "bool"
+                  },
+                  "typeName": {
+                    "id": 1282,
+                    "name": "bool",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "256:4:5",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_bool",
+                      "typeString": "bool"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                }
+              ],
+              "src": "255:18:5"
+            },
+            "payable": false,
+            "returnParameters": {
+              "id": 1287,
+              "nodeType": "ParameterList",
+              "parameters": [],
+              "src": "291:0:5"
+            },
+            "scope": 1294,
+            "src": "233:99:5",
+            "stateMutability": "nonpayable",
+            "superFunction": null,
+            "visibility": "public"
+          }
+        ],
+        "scope": 1295,
+        "src": "51:283:5"
+      }
+    ],
+    "src": "0:335:5"
+  },
+  "legacyAST": {
+    "absolutePath": "/Users/red/ethereum/ship-my-stuff/contracts/lib/Depreciable.sol",
+    "exportedSymbols": {
+      "Depreciable": [
+        1294
+      ]
+    },
+    "id": 1295,
+    "nodeType": "SourceUnit",
+    "nodes": [
+      {
+        "id": 1258,
+        "literals": [
+          "solidity",
+          "^",
+          "0.4",
+          ".24"
+        ],
+        "nodeType": "PragmaDirective",
+        "src": "0:24:5"
+      },
+      {
+        "absolutePath": "/Users/red/ethereum/ship-my-stuff/contracts/lib/Ownable.sol",
+        "file": "./Ownable.sol",
+        "id": 1259,
+        "nodeType": "ImportDirective",
+        "scope": 1295,
+        "sourceUnit": 1385,
+        "src": "26:23:5",
+        "symbolAliases": [],
+        "unitAlias": ""
+      },
+      {
+        "baseContracts": [
+          {
+            "arguments": null,
+            "baseName": {
+              "contractScope": null,
+              "id": 1260,
+              "name": "Ownable",
+              "nodeType": "UserDefinedTypeName",
+              "referencedDeclaration": 1384,
+              "src": "75:7:5",
+              "typeDescriptions": {
+                "typeIdentifier": "t_contract$_Ownable_$1384",
+                "typeString": "contract Ownable"
+              }
+            },
+            "id": 1261,
+            "nodeType": "InheritanceSpecifier",
+            "src": "75:7:5"
+          }
+        ],
+        "contractDependencies": [
+          1384
+        ],
+        "contractKind": "contract",
+        "documentation": null,
+        "fullyImplemented": true,
+        "id": 1294,
+        "linearizedBaseContracts": [
+          1294,
+          1384
+        ],
+        "name": "Depreciable",
+        "nodeType": "ContractDefinition",
+        "nodes": [
+          {
+            "constant": false,
+            "id": 1264,
+            "name": "deprecated",
+            "nodeType": "VariableDeclaration",
+            "scope": 1294,
+            "src": "89:30:5",
+            "stateVariable": true,
+            "storageLocation": "default",
+            "typeDescriptions": {
+              "typeIdentifier": "t_bool",
+              "typeString": "bool"
+            },
+            "typeName": {
+              "id": 1262,
+              "name": "bool",
+              "nodeType": "ElementaryTypeName",
+              "src": "89:4:5",
+              "typeDescriptions": {
+                "typeIdentifier": "t_bool",
+                "typeString": "bool"
+              }
+            },
+            "value": {
+              "argumentTypes": null,
+              "hexValue": "66616c7365",
+              "id": 1263,
+              "isConstant": false,
+              "isLValue": false,
+              "isPure": true,
+              "kind": "bool",
+              "lValueRequested": false,
+              "nodeType": "Literal",
+              "src": "114:5:5",
+              "subdenomination": null,
+              "typeDescriptions": {
+                "typeIdentifier": "t_bool",
+                "typeString": "bool"
+              },
+              "value": "false"
+            },
+            "visibility": "public"
+          },
+          {
+            "body": {
+              "id": 1271,
+              "nodeType": "Block",
+              "src": "148:24:5",
+              "statements": [
+                {
+                  "expression": {
+                    "argumentTypes": null,
+                    "arguments": [
+                      {
+                        "argumentTypes": null,
+                        "id": 1267,
+                        "name": "deprecated",
+                        "nodeType": "Identifier",
+                        "overloadedDeclarations": [],
+                        "referencedDeclaration": 1264,
+                        "src": "157:10:5",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_bool",
+                          "typeString": "bool"
+                        }
+                      }
+                    ],
+                    "expression": {
+                      "argumentTypes": [
+                        {
+                          "typeIdentifier": "t_bool",
+                          "typeString": "bool"
+                        }
+                      ],
+                      "id": 1266,
+                      "name": "require",
+                      "nodeType": "Identifier",
+                      "overloadedDeclarations": [
+                        1402,
+                        1403
+                      ],
+                      "referencedDeclaration": 1402,
+                      "src": "149:7:5",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_function_require_pure$_t_bool_$returns$__$",
+                        "typeString": "function (bool) pure"
+                      }
+                    },
+                    "id": 1268,
+                    "isConstant": false,
+                    "isLValue": false,
+                    "isPure": false,
+                    "kind": "functionCall",
+                    "lValueRequested": false,
+                    "names": [],
+                    "nodeType": "FunctionCall",
+                    "src": "149:19:5",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_tuple$__$",
+                      "typeString": "tuple()"
+                    }
+                  },
+                  "id": 1269,
+                  "nodeType": "ExpressionStatement",
+                  "src": "149:19:5"
+                },
+                {
+                  "id": 1270,
+                  "nodeType": "PlaceholderStatement",
+                  "src": "169:1:5"
+                }
+              ]
+            },
+            "documentation": null,
+            "id": 1272,
+            "name": "ifDeprecated",
+            "nodeType": "ModifierDefinition",
+            "parameters": {
+              "id": 1265,
+              "nodeType": "ParameterList",
+              "parameters": [],
+              "src": "148:0:5"
+            },
+            "src": "126:46:5",
+            "visibility": "internal"
+          },
+          {
+            "body": {
+              "id": 1280,
+              "nodeType": "Block",
+              "src": "202:25:5",
+              "statements": [
+                {
+                  "expression": {
+                    "argumentTypes": null,
+                    "arguments": [
+                      {
+                        "argumentTypes": null,
+                        "id": 1276,
+                        "isConstant": false,
+                        "isLValue": false,
+                        "isPure": false,
+                        "lValueRequested": false,
+                        "nodeType": "UnaryOperation",
+                        "operator": "!",
+                        "prefix": true,
+                        "src": "211:11:5",
+                        "subExpression": {
+                          "argumentTypes": null,
+                          "id": 1275,
+                          "name": "deprecated",
+                          "nodeType": "Identifier",
+                          "overloadedDeclarations": [],
+                          "referencedDeclaration": 1264,
+                          "src": "212:10:5",
+                          "typeDescriptions": {
+                            "typeIdentifier": "t_bool",
+                            "typeString": "bool"
+                          }
+                        },
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_bool",
+                          "typeString": "bool"
+                        }
+                      }
+                    ],
+                    "expression": {
+                      "argumentTypes": [
+                        {
+                          "typeIdentifier": "t_bool",
+                          "typeString": "bool"
+                        }
+                      ],
+                      "id": 1274,
+                      "name": "require",
+                      "nodeType": "Identifier",
+                      "overloadedDeclarations": [
+                        1402,
+                        1403
+                      ],
+                      "referencedDeclaration": 1402,
+                      "src": "203:7:5",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_function_require_pure$_t_bool_$returns$__$",
+                        "typeString": "function (bool) pure"
+                      }
+                    },
+                    "id": 1277,
+                    "isConstant": false,
+                    "isLValue": false,
+                    "isPure": false,
+                    "kind": "functionCall",
+                    "lValueRequested": false,
+                    "names": [],
+                    "nodeType": "FunctionCall",
+                    "src": "203:20:5",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_tuple$__$",
+                      "typeString": "tuple()"
+                    }
+                  },
+                  "id": 1278,
+                  "nodeType": "ExpressionStatement",
+                  "src": "203:20:5"
+                },
+                {
+                  "id": 1279,
+                  "nodeType": "PlaceholderStatement",
+                  "src": "224:1:5"
+                }
+              ]
+            },
+            "documentation": null,
+            "id": 1281,
+            "name": "ifNotDeprecated",
+            "nodeType": "ModifierDefinition",
+            "parameters": {
+              "id": 1273,
+              "nodeType": "ParameterList",
+              "parameters": [],
+              "src": "202:0:5"
+            },
+            "src": "177:50:5",
+            "visibility": "internal"
+          },
+          {
+            "body": {
+              "id": 1292,
+              "nodeType": "Block",
+              "src": "291:41:5",
+              "statements": [
+                {
+                  "expression": {
+                    "argumentTypes": null,
+                    "id": 1290,
+                    "isConstant": false,
+                    "isLValue": false,
+                    "isPure": false,
+                    "lValueRequested": false,
+                    "leftHandSide": {
+                      "argumentTypes": null,
+                      "id": 1288,
+                      "name": "deprecated",
+                      "nodeType": "Identifier",
+                      "overloadedDeclarations": [],
+                      "referencedDeclaration": 1264,
+                      "src": "301:10:5",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_bool",
+                        "typeString": "bool"
+                      }
+                    },
+                    "nodeType": "Assignment",
+                    "operator": "=",
+                    "rightHandSide": {
+                      "argumentTypes": null,
+                      "id": 1289,
+                      "name": "_deprecated",
+                      "nodeType": "Identifier",
+                      "overloadedDeclarations": [],
+                      "referencedDeclaration": 1283,
+                      "src": "314:11:5",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_bool",
+                        "typeString": "bool"
+                      }
+                    },
+                    "src": "301:24:5",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_bool",
+                      "typeString": "bool"
+                    }
+                  },
+                  "id": 1291,
+                  "nodeType": "ExpressionStatement",
+                  "src": "301:24:5"
+                }
+              ]
+            },
+            "documentation": null,
+            "id": 1293,
+            "implemented": true,
+            "isConstructor": false,
+            "isDeclaredConst": false,
+            "modifiers": [
+              {
+                "arguments": null,
+                "id": 1286,
+                "modifierName": {
+                  "argumentTypes": null,
+                  "id": 1285,
+                  "name": "onlyOwner",
+                  "nodeType": "Identifier",
+                  "overloadedDeclarations": [],
+                  "referencedDeclaration": 1365,
+                  "src": "281:9:5",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_modifier$__$",
+                    "typeString": "modifier ()"
+                  }
+                },
+                "nodeType": "ModifierInvocation",
+                "src": "281:9:5"
+              }
+            ],
+            "name": "setDeprecated",
+            "nodeType": "FunctionDefinition",
+            "parameters": {
+              "id": 1284,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 1283,
+                  "name": "_deprecated",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 1293,
+                  "src": "256:16:5",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_bool",
+                    "typeString": "bool"
+                  },
+                  "typeName": {
+                    "id": 1282,
+                    "name": "bool",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "256:4:5",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_bool",
+                      "typeString": "bool"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                }
+              ],
+              "src": "255:18:5"
+            },
+            "payable": false,
+            "returnParameters": {
+              "id": 1287,
+              "nodeType": "ParameterList",
+              "parameters": [],
+              "src": "291:0:5"
+            },
+            "scope": 1294,
+            "src": "233:99:5",
+            "stateMutability": "nonpayable",
+            "superFunction": null,
+            "visibility": "public"
+          }
+        ],
+        "scope": 1295,
+        "src": "51:283:5"
+      }
+    ],
+    "src": "0:335:5"
+  },
+  "compiler": {
+    "name": "solc",
+    "version": "0.4.24+commit.e67f0147.Emscripten.clang"
+  },
+  "networks": {},
+  "schemaVersion": "2.0.1",
+  "updatedAt": "2018-07-17T06:36:56.227Z"
+}
