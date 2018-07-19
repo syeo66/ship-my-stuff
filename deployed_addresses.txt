@@ -1,2 +1,2 @@
-Rinkeby:
+Rinkeby: 0xacc26d36721192206f3aff0b82b549bf3ebb4e06
 Ropsten:
