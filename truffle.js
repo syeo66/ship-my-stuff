@@ -1,3 +1,5 @@
+var HDWalletProvider = require("truffle-hdwallet-provider");
+
 /*
  * NB: since truffle-hdwallet-provider 0.0.5 you must wrap HDWallet providers in a 
  * function when declaring them. Failure to do so will cause commands to hang. ex:
@@ -12,6 +14,8 @@
  *   },
  */
 
+var config = require('./mnemonic.js');
+
 module.exports = {
   // See <http://truffleframework.com/docs/advanced/configuration>
   // to customize your Truffle configuration!
@@ -25,6 +29,18 @@ module.exports = {
       host: "localhost",
       port: 7545,
       network_id: "*"
+    },
+    ropsten: {
+      provider: function() {
+        return new HDWalletProvider(config.mnemonic, "https://ropsten.infura.io/"+config.access_token)
+      },
+      network_id: 3
+    },
+    rinkeby: {
+      provider: function() {
+        return new HDWalletProvider(config.mnemonic, "https://rinkeby.infura.io/"+config.access_token)
+      },
+      network_id: 4
     }
   }
 };
