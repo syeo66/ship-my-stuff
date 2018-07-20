@@ -2,10 +2,10 @@
 
 ## What does it do?
 ### Basic functionality
-**Ship my stuff** is a peer-to-peer delivery service. Think of it as some sort of a decentralized 'Uber for parcels'. The basic intendet use would be something along those lines (User **A** - Sender, User **B** - Hauler/Transporter, User **C** - Recipient):
+**Ship my stuff** is a peer-to-peer delivery service. Think of it as some sort of a decentralized 'Uber for parcels'. The basic intended use would be something along those lines (User **A** - Sender, User **B** - Hauler/Transporter, User **C** - Recipient):
 
 * **A** sends some Ether to the contract, adds some details (like pick-up address, delivery address, weight, etc.).
-* The offer gets published.
+* The offer gets published. **A** writes down the confirmation code.
 * **B** marks the offer he intends to deliver as 'taken'.
 * As soon the Parcel has been picked up **A** marks it as 'picked up'.
 * **B** delivers the parcel to **C**.
@@ -18,13 +18,25 @@
 * Old contracts can be marked as 'deprecated' which allows to create some grace period in which no ne parcels can be created but delivery and payout is still possible.
 
 ## Setup
+First start Ganache on port 8545.
+
+```bash
+ganache-cli
+```
+and then build the dApp
+
 ```bash
 npm install
 truffle compile
 truffle migrate
 npm run build # Important! Needs to be after truffle migrate
 ```
-Of course this requires `ganach-cli` or similar to run on port 8545.
+
+## Start the webserver
+```bash
+npm run dev
+```
+Then you should be able to see the interface on `http://localhost:3000/`
 
 ## Run the tests
 First start Ganache using
@@ -40,15 +52,12 @@ Then start the tests using:
 truffle test
 ```
 
-## Start the webserver
-```bash
-npm run dev
-```
-Then you should be able to see the interface on `http://localhost:3000/`
-
 ## Public availability
 The interface is available in public at [https://gateway.ipfs.io/ipns/ship-my-stuff.com/](https://ipfs.io/ipns/ship-my-stuff.com/) or - because ipns is rather slow - also hosted at [https://ship-my-stuff.com/](https://ship-my-stuff.com/).
+
 There is a contract available on the Rinkeby network at [0xacc26d36721192206f3aff0b82b549bf3ebb4e06](https://rinkeby.etherscan.io/address/0xacc26d36721192206f3aff0b82b549bf3ebb4e06) and on the Ropsten network at [0xe4a65634c6a154cbcb18d70a06942e5cb152568f](https://ropsten.etherscan.io/address/0xe4a65634c6a154cbcb18d70a06942e5cb152568f).
+
+The Registry contract can be found at Rinkeby [0x06e5f834f4e6c34de2478d82e8d78755a2fb1498](https://rinkeby.etherscan.io/address/0x06e5f834f4e6c34de2478d82e8d78755a2fb1498) and Ropsten [0x9dbacbe623634998e04925a4496aba0b3fc5e77a](https://ropsten.etherscan.io/address/0x9dbacbe623634998e04925a4496aba0b3fc5e77a). 
 
 ## Configuration
 By clicking on the connection indicator on the top right you can open a configuration screen which allows you to set the IPFS node to be used. If you are not using MetaMask you can also set the Ethereum node url and your unlocked account address.

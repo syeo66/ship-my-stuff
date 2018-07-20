@@ -18,7 +18,7 @@ Because it it is safer to require the user to request a withdrawal instead of se
 Every parcel has a typical lifecycle. This lifecycle is mirrored using the states Created, Taken, PickedUp, Deliverd and Cancelled. With every change of state an event is emitted and there are modifiers in place checking for the state of the parcel.
 
 ## Indexed mapping
-Using a mapping and using an index allows me to mainain a list of parcels in 'Created' state for easier access. I would like to have used ndexed-enumerable-set-lib from EthPM but ```truffle install ndexed-enumerable-set-lib``` refused to work with the message ```Error: Unknown server response 504 when downloading hash Q...```.
+Using a mapping and using an index allows me to mainain a list of parcels in 'Created' state for easier access. I would like to have used indexed-enumerable-set-lib from EthPM but ```truffle install ndexed-enumerable-set-lib``` refused to work with the message ```Error: Unknown server response 504 when downloading hash Q...```.
 
 ## Contract registry
-I added a registry contract which retrieves and tracks the addresses of the deployed main contracts with truffles migration. This registry will be used as a ENS resolver to be able to lookup the current contract address.
+I added a registry contract which retrieves and tracks the addresses of the deployed main contracts with truffles migration. This registry could be used as a ENS resolver to be able to lookup the current contract address.
