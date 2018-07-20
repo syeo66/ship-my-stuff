@@ -4,23 +4,23 @@ import Web3Connector from '../web3connector';
 import MessageDialog from '../message_dialog';
 import 'bootstrap';
 
-let Web3 = require('web3');
-
 class CreateParcelForm extends Component {
     submitStream = null;
 
+    cleanState = {
+        fromAddress: '',
+        from3Words: '',
+        toAddress:'',
+        to3Words:'',
+        weight:'',
+        price:'',
+        maxPrice:'',
+        disabled:false
+    };
+
     constructor(props) {
         super(props);
-        this.state = {
-            fromAddress: '',
-            from3Words: '',
-            toAddress:'',
-            to3Words:'',
-            weight:'',
-            price:'',
-            maxPrice:'',
-            disabled:false
-        };
+        this.state = {...this.cleanState};
 
         this.handleSubmit = this.handleSubmit.bind(this);
         this.handleFromAddress = this.handleFromAddress.bind(this);
@@ -116,13 +116,7 @@ class CreateParcelForm extends Component {
                     $('#confirmationCode', $modal).text(confirmationKey);
                     MessageDialog.notice('The offer has been published.');
                     $modal.modal();
-                    this.setState({
-                        fromAddress: '',
-                        toAddress:'',
-                        weight:'',
-                        price:'',
-                        disabled:false
-                    });
+                    this.setState({...this.cleanState});
                 }).catch(_ => {
                     MessageDialog.alert('Could not create the offer.');
                     this.setState({...this.state, disabled: false});

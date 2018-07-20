@@ -4,7 +4,7 @@ const webpack = require('webpack');
 
 // webpack.config.js
 module.exports = {
-    mode: 'development',
+    //mode: 'development',
     entry: './src/index.js',
     node: {
         fs: "empty"
