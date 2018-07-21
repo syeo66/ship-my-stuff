@@ -14,6 +14,8 @@ class AppConfiguration extends Component {
             nodeAddress: props.nodeAddress || Web3Connector.connectionData.nodeAddress,
             account: props.account || Web3Connector.connectionData.account,
             isMetaMask: false,
+            isTrust: false,
+            isToshi: false,
             isConnected: false
         };
     }
@@ -35,6 +37,9 @@ class AppConfiguration extends Component {
             this.setState(prevState => ({
                 ...prevState,
                 isMetaMask: !!web3.currentProvider.isMetaMask,
+                isTrust: !!web3.currentProvider.isTrust,
+                isToshi: typeof window.SOFA !== 'undefined',
+                isCypher: typeof window.__CIPHER__ !== 'undefined',
                 isConnected: !!data.name,
                 hasAccount: !!web3.eth.defaultAccount,
                 network: data.name
@@ -102,7 +107,14 @@ class AppConfiguration extends Component {
                                 <hr/>
                             </div>
                         </div>}
-                    {!this.state.isMetaMask &&
+                    {this.state.isToshi &&
+                        <div className="row">
+                            <div className="col">
+                                <img src="images/toshi.png" width="40" />&nbsp;<span style={{color:this.state.hasAccount!==false ? '#6f6' : '#f66'}}><i className="fas fa-signal"></i></span> {this.state.hasAccount && "Connected using Toshi"}
+                                <hr/>
+                            </div>
+                        </div>}
+                    {!this.state.isMetaMask && this.state.isToshi &&
                         <div className="row">
                             <div className="col">
                                 <span style={{color:this.state.isConnected!==false ? '#6f6' : '#f66'}}><i className="fas fa-signal"></i></span> {this.state.isConnected && "Connected to " + this.state.network + " network"}{this.state.isConnected && !this.state.hasAccount && " but no account available."}{!this.state.isConnected && "Not connected."}
