@@ -45,7 +45,7 @@ class AccountData extends Component {
     render() {
         return (
             <div>
-                <div><strong>Account:</strong><br/>{this.state.account || '-'}</div>
+                <div style={{overflow:"hidden",textOverflow:"ellipsis"}}><strong>Account:</strong><br/>{this.state.account || '-'}</div>
                 <div className="mt-1">
                     <strong>Balance:</strong><br/><i className="fab fa-ethereum"></i>&nbsp;{Number.parseFloat(this.state.balance).toPrecision(5)}
                     &nbsp;<small className="text-muted">(<i className="fab fa-ethereum"></i> {Number.parseFloat(this.state.unclaimed).toPrecision(3)} unclaimed)</small>&nbsp;
