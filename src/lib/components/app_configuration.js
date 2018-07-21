@@ -16,6 +16,7 @@ class AppConfiguration extends Component {
             isMetaMask: false,
             isTrust: false,
             isToshi: false,
+            isCipher: false,
             isConnected: false
         };
     }
@@ -114,7 +115,14 @@ class AppConfiguration extends Component {
                                 <hr/>
                             </div>
                         </div>}
-                    {!this.state.isMetaMask && !this.state.isToshi &&
+                    {this.state.isCipher &&
+                        <div className="row">
+                            <div className="col">
+                                <span style={{color:this.state.hasAccount!==false ? '#6f6' : '#f66'}}><i className="fas fa-signal"></i></span> {this.state.hasAccount && "Connected using Cipher"}
+                                <hr/>
+                            </div>
+                        </div>}
+                    {!this.state.isMetaMask && !this.state.isToshi && !this.state.isCipher &&
                         <div className="row">
                             <div className="col">
                                 <span style={{color:this.state.isConnected!==false ? '#6f6' : '#f66'}}><i className="fas fa-signal"></i></span> {this.state.isConnected && "Connected to " + this.state.network + " network"}{this.state.isConnected && !this.state.hasAccount && " but no account available."}{!this.state.isConnected && "Not connected."}
