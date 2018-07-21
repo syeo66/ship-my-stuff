@@ -14,7 +14,9 @@ const ParcelState = Object.freeze({
 class Parcel extends Component {
     constructor(props) {
         super(props);
-        this.state = {disabled:false};
+        this.state = {
+            disabled:false
+        };
     }
 
     render() {
@@ -41,33 +43,39 @@ class Parcel extends Component {
                     </div>
                     <hr/>
                     <div className="row">
-                        {this.props.fromAddress && 
+                        {this.props.senderAddress && 
                             (this.props.state == ParcelState.PICKED_UP) &&
                             <div className="col"><i className="fas fa-shipping-fast"></i></div>
                         }
-                        {this.props.fromAddress && 
+                        {this.props.senderAddress && 
                             (this.props.state == ParcelState.DELIVERED) &&
                             <div className="col"><i className="fas fa-parachute-box"></i></div>
                         }
-                        {this.props.fromAddress &&
+                        {this.props.senderAddress &&
                             !!Web3Connector.account.account &&
                             (this.props.senderAddress != Web3Connector.account.account) &&
                             (this.props.state == ParcelState.CREATED) &&
                             <div className="col"><button onClick={this.handleTake.bind(this)} disabled={this.state.disabled} className="btn btn-sm btn-secondary"><i className={this.state.disabled?"fas fa-sync fa-spin":"fas fa-shipping-fast"}></i> Take</button></div>
                         }
-                        {this.props.fromAddress && 
+                        {this.props.senderAddress && 
                             !!Web3Connector.account.account &&
                             (this.props.senderAddress == Web3Connector.account.account) &&
                             (this.props.state == ParcelState.CREATED) &&
                             <div className="col"><button onClick={this.handleCancel.bind(this)} disabled={this.state.disabled} className="btn btn-sm btn-danger"><i className={this.state.disabled?"fas fa-sync fa-spin":"fas fa-ban"}></i> Cancel</button></div>
                         }
-                        {this.props.fromAddress && 
+                        {this.props.senderAddress && 
                             !!Web3Connector.account.account &&
                             (this.props.senderAddress == Web3Connector.account.account) &&
                             (this.props.state == ParcelState.TAKEN) &&
                             <div className="col"><button onClick={this.handlePickUp.bind(this)} disabled={this.state.disabled} className="btn btn-sm btn-primary"><i className={this.state.disabled?"fas fa-sync fa-spin":"fas fa-truck"}></i> Picked up</button></div>
                         }
-                        <div className="col text-right"><i className="fab fa-ethereum"></i><strong>&nbsp;{web3.fromWei(this.props.price, 'ether') || '0'}</strong></div>
+                        <div className="col text-right">
+                            {this.props.confirmationHash && 
+                                (this.props.loading) &&
+                                <span><i className="fas fa-sync fa-spin"></i>&nbsp;</span>
+                            }
+                            <i className="fab fa-ethereum"></i><strong>&nbsp;{web3.fromWei(this.props.price, 'ether') || '0'}</strong>
+                        </div>
                     </div>
                 </div>
             </div>

@@ -63,8 +63,10 @@ class ParcelList extends Component {
                 }
                 let count = 0;
                 for (let i = 0; i < parcels.length; i++) {
+                    parcels[i].loading = true;
                     let parcel = parcels[i];
                     Web3Connector.getParcel(parcel.confirmationHash).then(data => {
+                        data.loading = false;
                         parcels[i] = data;
                         if (++count == parcels.length) {
                             this.setState({...this.state, parcels: parcels});
@@ -121,7 +123,7 @@ class ParcelList extends Component {
                     {this.state.parcels.map(parcel => (
                         <Parcel 
                             key={parcel.confirmationHash} 
-                            confirmationHash={parcel.confirmationHash} 
+                            confirmationHash={parcel.confirmationHash}
                             state={parcel.state} 
                             senderAddress={parcel.senderAddress} 
                             fromAddress={parcel.fromAddress} 
@@ -129,6 +131,7 @@ class ParcelList extends Component {
                             toAddress={parcel.toAddress} 
                             to3Words={parcel.to3Words} 
                             weight={parcel.weight} 
+                            loading={parcel.loading} 
                             price={parcel.price} />
                     ))}
                 </div>

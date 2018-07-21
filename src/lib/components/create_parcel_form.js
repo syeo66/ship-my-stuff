@@ -108,7 +108,7 @@ class CreateParcelForm extends Component {
         const confirmationHash = web3.sha3(confirmationKey);
 
         const ifpsBuffer = Buffer.from(description);
-        Web3Connector.ipfs.add(ifpsBuffer, {pin:false})
+        Web3Connector.ipfs.add(ifpsBuffer, {pin:true})
             .then(response => {
                 const parcelData = JSON.stringify({hash:response[0].hash});
                 Web3Connector.createParcel(confirmationHash, parcelData, web3.toWei(this.state.price, 'ether')).then(() => {

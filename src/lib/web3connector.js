@@ -301,25 +301,33 @@ let Web3Connector = {
                     const price = parcel[2];
                     const state = parcel[3];
                     let parcelContent = description;
-
-                    Web3Connector.ipfs.files.get(description.hash, (err, files) => {
-                        files.forEach(file => {
-                            parcelContent = {...parcelContent, ...JSON.parse(file.content.toString('utf8'))};
+                    Web3Connector.ipfs.files.get(description.hash).then(
+                        files => {
+                            files.forEach(file => {
+                                parcelContent = {...parcelContent, ...JSON.parse(file.content.toString('utf8'))};
+                            });
+    
+                            resolve({
+                                confirmationHash: hash,
+                                senderAddress: senderAddress,
+                                haulerAddress: haulerAddress,
+                                fromAddress: Web3Connector.safeString(parcelContent.fromAddress),
+                                from3Words: Web3Connector.safeString(parcelContent.from3Words),
+                                toAddress: Web3Connector.safeString(parcelContent.toAddress),
+                                to3Words: Web3Connector.safeString(parcelContent.to3Words),
+                                weight: parseFloat(parcelContent.weight),
+                                price: price.toNumber(),
+                                state: state.toNumber()
+                            });
+                        }).catch(_ => {
+                            resolve({
+                                confirmationHash: hash,
+                                senderAddress: senderAddress,
+                                haulerAddress: haulerAddress,
+                                price: price.toNumber(),
+                                state: state.toNumber()
+                            });
                         });
-
-                        resolve({
-                            confirmationHash: hash,
-                            senderAddress: senderAddress,
-                            haulerAddress: haulerAddress,
-                            fromAddress: Web3Connector.safeString(parcelContent.fromAddress),
-                            from3Words: Web3Connector.safeString(parcelContent.from3Words),
-                            toAddress: Web3Connector.safeString(parcelContent.toAddress),
-                            to3Words: Web3Connector.safeString(parcelContent.to3Words),
-                            weight: parseFloat(parcelContent.weight),
-                            price: price.toNumber(),
-                            state: state.toNumber()
-                        });
-                    });
                 } catch(err) {reject(err)}
             }).catch(err => {
                 MessageDialog.alert('Contract does not exist on this network.')
