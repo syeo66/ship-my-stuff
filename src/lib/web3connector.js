@@ -18,6 +18,8 @@ let Web3Connector = {
     accountUpdateStream: null,
     updateStream: null,
 
+    gasPrice: 10,
+
     _contractAddress: false,
 
     connectionData: {
@@ -43,6 +45,7 @@ let Web3Connector = {
         if (typeof web3 !== 'undefined') {
             Web3Connector.web3Provider = web3.currentProvider;
             Web3Connector.web3 = web3;
+            Web3Connector.initGasPrice();
             return;
         }
 
@@ -52,6 +55,13 @@ let Web3Connector = {
             Web3Connector.web3.eth.defaultAccount = Web3Connector.connectionData.account;
             Web3Connector.account.account = Web3Connector.connectionData.account;
         }
+        Web3Connector.initGasPrice();
+    },
+
+    initGasPrice: () => {
+        Web3Connector.web3.eth.getGasPrice((error, result) => {
+            Web3Connector.gasPrice = result.toNumber();
+        });
     },
 
     initStreams: () => {
@@ -181,6 +191,7 @@ let Web3Connector = {
                     contract.createParcel(confirmationHash, description, {
                         from: Web3Connector.account.account,
                         gas: 400000,
+                        gasPrice: Web3Connector.gasPrice,
                         value: price
                     }).then((error, data) => {
                         resolve(data);
@@ -199,7 +210,8 @@ let Web3Connector = {
                 try {
                     contract.takeParcel(index, {
                         from: Web3Connector.account.account,
-                        gas: 200000
+                        gas: 200000,
+                        gasPrice: Web3Connector.gasPrice
                     }).then(_ => resolve());
                 } catch(err) {reject(err)}
             }).catch(err => {
@@ -215,6 +227,7 @@ let Web3Connector = {
                 try {
                     contract.pickUpParcel(index, {
                         from: Web3Connector.account.account,
+                        gasPrice: Web3Connector.gasPrice,
                         gas: 45000
                     }).then(_ => resolve());
                 } catch(err) {reject(err)}
@@ -231,6 +244,7 @@ let Web3Connector = {
                 try {
                     contract.cancelParcel(index, {
                         from: Web3Connector.account.account,
+                        gasPrice: Web3Connector.gasPrice,
                         gas: 150000
                     }).then(_ => resolve());
                 } catch(err) {reject(err)}
@@ -248,6 +262,7 @@ let Web3Connector = {
                 try {
                     contract.deliverParcel(index, key, {
                         from: Web3Connector.account.account,
+                        gasPrice: Web3Connector.gasPrice,
                         gas: 100000
                     }).then(_ => resolve()).catch(err => reject(err));
                 } catch(err) {reject(err)}
@@ -263,6 +278,7 @@ let Web3Connector = {
                 try {
                     contract.withdraw({
                         from: Web3Connector.account.account,
+                        gasPrice: Web3Connector.gasPrice,
                         gas: 50000
                     }).then(_ => resolve());
                 } catch(err) {reject(err)}
