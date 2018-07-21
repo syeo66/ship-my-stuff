@@ -135,6 +135,7 @@ class ParcelList extends Component {
                             price={parcel.price} />
                     ))}
                 </div>
+                <hr/>
             </div>
         );
     }
