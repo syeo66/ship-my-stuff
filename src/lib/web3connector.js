@@ -38,7 +38,9 @@ let Web3Connector = {
         });
     },
 
-    reconnect: () => {
+    getWeb3: _ => Web3Connector.web3,
+
+    reconnect: async _ => {
         let ipfsUrl = new URL(Web3Connector.connectionData.ipfsAddress);
         Web3Connector.ipfs = ipfsAPI(ipfsUrl.hostname || 'localhost', ipfsUrl.port || '5001', {protocol: ipfsUrl.protocol.replace(':', '') || 'http'});
 
@@ -49,13 +51,18 @@ let Web3Connector = {
             return;
         }
 
-        Web3Connector.web3Provider = new Web3.providers.HttpProvider('http://localhost:8545');
+        if (!!Web3Connector.web3) {
+            Web3Connector.web3.reset();
+        }
+        Web3Connector.web3Provider = new Web3.providers.HttpProvider(Web3Connector.connectionData.nodeAddress);
         Web3Connector.web3 = new Web3(Web3Connector.web3Provider);
         if (!!Web3Connector.connectionData.account) {
             Web3Connector.web3.eth.defaultAccount = Web3Connector.connectionData.account;
             Web3Connector.account.account = Web3Connector.connectionData.account;
         }
         Web3Connector.initGasPrice();
+        Web3Connector.contracts = [];
+        await Web3Connector.initContracts();
     },
 
     initGasPrice: () => {
@@ -91,7 +98,7 @@ let Web3Connector = {
                 if (!Web3Connector.web3Provider) {
                     return;
                 }
-                const account = Web3Connector.web3.eth.defaultAccount;
+                const account = Web3Connector.getWeb3().eth.defaultAccount;
                 if (typeof account === 'undefined') {
                     observable.next({
                         account: 0x0,
@@ -100,7 +107,7 @@ let Web3Connector = {
                     });
                     return;
                 }
-                Web3Connector.web3.eth.getBalance(account, async (error, v) => {
+                Web3Connector.getWeb3().eth.getBalance(account, async (error, v) => {
                     observable.next({
                         account: account,
                         balance: v.toNumber(),
@@ -135,8 +142,8 @@ let Web3Connector = {
                     return;
                 }
                 observable.next({
-                    network: Web3Connector.web3.version.network,
-                    isMetaMask: !!Web3Connector.web3.currentProvider.isMetaMask,
+                    network: Web3Connector.getWeb3().version.network,
+                    isMetaMask: !!Web3Connector.getWeb3().currentProvider.isMetaMask,
                     account: Web3Connector.account.account
                 });
             }))
