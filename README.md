@@ -55,9 +55,9 @@ truffle test
 ## Public availability
 The interface is available in public at [https://gateway.ipfs.io/ipns/ship-my-stuff.com/](https://ipfs.io/ipns/ship-my-stuff.com/) or - because ipns is rather slow - also hosted at [https://ship-my-stuff.com/](https://ship-my-stuff.com/).
 
-There is a contract available on the Rinkeby network at [0xacc26d36721192206f3aff0b82b549bf3ebb4e06](https://rinkeby.etherscan.io/address/0xacc26d36721192206f3aff0b82b549bf3ebb4e06) and on the Ropsten network at [0xe4a65634c6a154cbcb18d70a06942e5cb152568f](https://ropsten.etherscan.io/address/0xe4a65634c6a154cbcb18d70a06942e5cb152568f).
+There is a contract available on the Rinkeby network at [0xacc26d36721192206f3aff0b82b549bf3ebb4e06](https://rinkeby.etherscan.io/address/0xacc26d36721192206f3aff0b82b549bf3ebb4e06) and on the Ropsten network at [sms.redochsenbein.eth](https://ropsten.etherscan.io/address/0xe4a65634c6a154cbcb18d70a06942e5cb152568f) (0xe4a65634c6a154cbcb18d70a06942e5cb152568f).
 
-The Registry contract can be found at Rinkeby [0x06e5f834f4e6c34de2478d82e8d78755a2fb1498](https://rinkeby.etherscan.io/address/0x06e5f834f4e6c34de2478d82e8d78755a2fb1498) and Ropsten [0x9dbacbe623634998e04925a4496aba0b3fc5e77a](https://ropsten.etherscan.io/address/0x9dbacbe623634998e04925a4496aba0b3fc5e77a). 
+The Registry contract can be found at Rinkeby [0x06e5f834f4e6c34de2478d82e8d78755a2fb1498](https://rinkeby.etherscan.io/address/0x06e5f834f4e6c34de2478d82e8d78755a2fb1498) and Ropsten [sms-registry.redochsenbein.eth](https://ropsten.etherscan.io/address/0x9dbacbe623634998e04925a4496aba0b3fc5e77a) (0x9dbacbe623634998e04925a4496aba0b3fc5e77a).
 
 ## Configuration
 By clicking on the connection indicator on the top right you can open a configuration screen which allows you to set the IPFS node to be used. If you are not using MetaMask you can also set the Ethereum node url and your unlocked account address.
