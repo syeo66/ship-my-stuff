@@ -18,6 +18,11 @@
 * Old contracts can be marked as 'deprecated' which allows to create some grace period in which no ne parcels can be created but delivery and payout is still possible.
 
 ## Setup
+Clone repository from github using git:
+```bash
+git clone https://github.com/syeo66/ship-my-stuff.git
+```
+
 First start Ganache on port 8545.
 
 ```bash
@@ -26,6 +31,7 @@ ganache-cli
 and then build the dApp
 
 ```bash
+cd ship-my-stuff # if you're not yet in this folder
 npm install
 truffle compile
 truffle migrate
