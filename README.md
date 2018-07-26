@@ -38,6 +38,8 @@ truffle migrate
 npm run build # Important! Needs to be after truffle migrate
 ```
 
+**Just to make sure: `npm run build` is required after `truffle migrate` (also in development environment) to make sure the contract information is available for the Javascript-App.**
+
 ## Start the webserver
 ```bash
 npm run dev
