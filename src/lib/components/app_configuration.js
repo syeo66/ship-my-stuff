@@ -126,9 +126,6 @@ class AppConfiguration extends Component {
                         <div className="row">
                             <div className="col">
                                 <span style={{color:this.state.isConnected!==false ? '#6f6' : '#f66'}}><i className="fas fa-signal"></i></span> {this.state.isConnected && "Connected to " + this.state.network + " network"}{this.state.isConnected && !this.state.hasAccount && " but no account available."}{!this.state.isConnected && "Not connected."}
-                                <hr/>
-                                <FormField disabled={this.state.disabled} onChange={this.handleNodeAddress.bind(this)} name="nodeAddress" fieldLabel="Ethereum Node URL" placeholder="http://localhost:8545/" value={this.state.nodeAddress} />
-                                <FormField disabled={this.state.disabled} helpText="Needs to be unlocked on your node." onChange={this.handleAccount.bind(this)} name="account" fieldLabel="Ethereum Address" placeholder="0x..." value={this.state.account} />
                             </div>
                         </div>
                     }

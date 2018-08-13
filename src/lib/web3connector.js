@@ -1,4 +1,4 @@
-import { Observable, timer } from 'rxjs';
+import { Observable, timer, fromEvent } from 'rxjs';
 import { map, mergeMap, distinctUntilChanged } from 'rxjs/operators';
 import MessageDialog from './message_dialog';
 import ipfsAPI from 'ipfs-api';
@@ -14,6 +14,7 @@ let Web3Connector = {
     account: {account:null, balance:0, unclaimed:0},
 
     timerStream: null,
+    providerStream: null,
     networkStatusStream: null,
     accountUpdateStream: null,
     updateStream: null,
@@ -54,6 +55,8 @@ let Web3Connector = {
         if (!!Web3Connector.web3) {
             Web3Connector.web3.reset();
         }
+
+        /*
         Web3Connector.web3Provider = new Web3.providers.HttpProvider(Web3Connector.connectionData.nodeAddress);
         Web3Connector.web3 = new Web3(Web3Connector.web3Provider);
         if (!!Web3Connector.connectionData.account) {
@@ -63,6 +66,29 @@ let Web3Connector = {
         Web3Connector.initGasPrice();
         Web3Connector.contracts = [];
         await Web3Connector.initContracts();
+        */
+
+        if (Web3Connector.providerStream === null) {
+            Web3Connector.providerStream = fromEvent(window, 'message').pipe(
+                mergeMap(({data}) => {
+                    if (data && data.type && data.type === 'ETHEREUM_PROVIDER_SUCCESS') {
+                        Web3Connector.web3Provider = window.ethereum;
+                        Web3Connector.web3 = new Web3(Web3Connector.web3Provider);
+                        if (!!Web3Connector.connectionData.account) {
+                            Web3Connector.web3.eth.defaultAccount = Web3Connector.connectionData.account;
+                            Web3Connector.account.account = Web3Connector.connectionData.account;
+                        }
+                    }
+                })
+            );
+            Web3Connector.providerStream.subscribe(_ => {
+                Web3Connector.initGasPrice();
+                Web3Connector.contracts = [];
+                Web3Connector.initContracts();
+            });
+        }
+
+        window.postMessage({ type: 'ETHEREUM_PROVIDER_REQUEST' }, '*');
     },
 
     initGasPrice: () => {
@@ -79,7 +105,7 @@ let Web3Connector = {
 
     readyContracts: () => {
         return new Promise((resolve, reject) => {
-            if (typeof Web3Connector.contracts.TransportMarket != 'undefined') {
+            if (typeof Web3Connector.contracts.TransportMarket != 'undefined' || !Web3Connector.web3Provider) {
                 resolve();
                 return;
             }
@@ -126,6 +152,9 @@ let Web3Connector = {
     },
 
     initUpdateStream: () => {
+        if (typeof Web3Connector.contracts.TransportMarket == 'undefined') {
+            return;
+        }
         Web3Connector.contracts.TransportMarket.deployed().then(contract => {
             const allEvents = contract.allEvents();
             Web3Connector.updateStream = Observable.create(observable => {
@@ -179,7 +208,7 @@ let Web3Connector = {
 
     initContracts: () => {
         return new Promise(async (resolve, reject) => {
-            if (typeof Web3Connector.contracts.TransportMarket != 'undefined') {
+            if (typeof Web3Connector.contracts.TransportMarket != 'undefined' || !Web3Connector.web3Provider) {
                 resolve();
                 return;
             }
@@ -193,6 +222,10 @@ let Web3Connector = {
 
     createParcel: (confirmationHash, description, price) => {
         return new Promise((resolve, reject) => {
+            if (typeof Web3Connector.contracts.TransportMarket == 'undefined') {
+                resolve();
+                return;
+            }
             Web3Connector.contracts.TransportMarket.deployed().then(contract => {
                 try {
                     contract.createParcel(confirmationHash, description, {
@@ -212,6 +245,10 @@ let Web3Connector = {
 
     takeParcel: hash => {
         return new Promise(async (resolve, reject) => {
+            if (typeof Web3Connector.contracts.TransportMarket == 'undefined') {
+                resolve();
+                return;
+            }
             const index = await Web3Connector.getParcelIndex(hash);
             Web3Connector.contracts.TransportMarket.deployed().then(contract => {
                 try {
@@ -229,6 +266,10 @@ let Web3Connector = {
 
     pickUpParcel: hash => {
         return new Promise(async (resolve, reject) => {
+            if (typeof Web3Connector.contracts.TransportMarket == 'undefined') {
+                resolve();
+                return;
+            }
             const index = await Web3Connector.getParcelIndex(hash);
             Web3Connector.contracts.TransportMarket.deployed().then(contract => {
                 try {
@@ -246,6 +287,10 @@ let Web3Connector = {
 
     cancelParcel: hash => {
         return new Promise(async (resolve, reject) => {
+            if (typeof Web3Connector.contracts.TransportMarket == 'undefined') {
+                resolve();
+                return;
+            }
             const index = await Web3Connector.getParcelIndex(hash);
             Web3Connector.contracts.TransportMarket.deployed().then(contract => {
                 try {
@@ -263,6 +308,10 @@ let Web3Connector = {
 
     deliverParcel: key => {
         return new Promise(async (resolve, reject) => {
+            if (typeof Web3Connector.contracts.TransportMarket == 'undefined') {
+                resolve();
+                return;
+            }
             const hash = Web3Connector.web3.sha3(key);
             const index = await Web3Connector.getParcelIndex(hash);
             Web3Connector.contracts.TransportMarket.deployed().then(contract => {
@@ -281,6 +330,10 @@ let Web3Connector = {
 
     withdraw: _ => {
         return new Promise(async (resolve, reject) => {
+            if (typeof Web3Connector.contracts.TransportMarket == 'undefined') {
+                resolve();
+                return;
+            }
             Web3Connector.contracts.TransportMarket.deployed().then(contract => {
                 try {
                     contract.withdraw({
@@ -297,6 +350,10 @@ let Web3Connector = {
 
     getParcelIndex: hash => {
         return new Promise((resolve, reject) => {
+            if (typeof Web3Connector.contracts.TransportMarket == 'undefined') {
+                resolve();
+                return;
+            }
             Web3Connector.contracts.TransportMarket.deployed().then(contract => {
                 try {
                     contract.getParcelIndex.call(hash, {from: Web3Connector.account.account}).then(data => {
@@ -311,6 +368,10 @@ let Web3Connector = {
 
     getParcel: hash => {
         return new Promise(async (resolve, reject) => {
+            if (typeof Web3Connector.contracts.TransportMarket == 'undefined') {
+                resolve();
+                return;
+            }
             const index = await Web3Connector.getParcelIndex(hash);
             Web3Connector.contracts.TransportMarket.deployed().then(async contract => {
                 try {
@@ -368,6 +429,10 @@ let Web3Connector = {
 
     getParcels: type => {
         return new Promise((resolve, reject) => {
+            if (typeof Web3Connector.contracts.TransportMarket == 'undefined') {
+                resolve();
+                return;
+            }
             Web3Connector.contracts.TransportMarket.deployed().then(contract => {
                 try {
                     let method;
@@ -404,6 +469,10 @@ let Web3Connector = {
 
     getMaxValue: () => {
         return new Promise((resolve, reject) => {
+            if (typeof Web3Connector.contracts.TransportMarket == 'undefined') {
+                resolve();
+                return;
+            }
             Web3Connector.contracts.TransportMarket.deployed().then(contract => {
                 try {
                     contract.maxValue.call({from: Web3Connector.account.account}).then(data => {

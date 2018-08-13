@@ -37,7 +37,7 @@ class CreateParcelForm extends Component {
                 <FormField disabled={this.state.disabled} onChange={this.handleFromAddress} name="parcelFromAddress" fieldLabel="Pick up at address" placeholder="John Doe, Somestreet, 94743 Example" value={this.state.fromAddress} />
                 <FormField disabled={this.state.disabled} onChange={this.handleFrom3Words} help3Words="Find the 3 words address" name="parcelFrom3Words" fieldLabel="Pick up 3 words address" placeholder="///..." value={this.state.from3Words} />
                 <FormField disabled={this.state.disabled} onChange={this.handleToAddress} name="parcelToAddress" fieldLabel="Send to address" placeholder="Jane Doe, Otherstreet, 94743 Example" value={this.state.toAddress} />
-                <FormField disabled={this.state.disabled} onChange={this.handleTo3Words} help3Words="Find the 3 words address" name="parcelTo3Words" fieldLabel="Pick up 3 words address" placeholder="///..." value={this.state.to3Words} />
+                <FormField disabled={this.state.disabled} onChange={this.handleTo3Words} help3Words="Find the 3 words address" name="parcelTo3Words" fieldLabel="Receipients 3 words address" placeholder="///..." value={this.state.to3Words} />
                 <FormField disabled={this.state.disabled} onChange={this.handleWeight} name="parcelWeight" fieldLabel="Weight in kg" value={this.state.weight} />
                 <FormField maxValue={this.state.maxValue} disabled={this.state.disabled} onChange={this.handlePrice} name="parcelPrice" fieldLabel="Compensation in Ether" value={this.state.price} />
                 <button className="btn btn-primary" disabled={this.state.disabled}><i className={this.state.disabled?"fas fa-sync fa-spin":"fas fa-box"}></i>&nbsp;Create offer</button>
