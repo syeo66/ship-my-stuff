@@ -1,7 +1,6 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
+import App from './lib/app';
 
 jQuery($ => {
-    import('./lib/app').then(App => {
-        App.init();
-    });
+    App.init();
 });

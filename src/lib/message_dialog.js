@@ -38,4 +38,4 @@ let MessageDialog = {
     }
 }
 
-module.exports = MessageDialog;
+export default MessageDialog;

@@ -45,4 +45,4 @@ class ReceivedParcelForm extends Component {
     }
 }
 
-module.exports = ReceivedParcelForm;
+export default ReceivedParcelForm;

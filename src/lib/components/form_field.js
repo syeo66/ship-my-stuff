@@ -40,4 +40,4 @@ class FormField extends Component {
     }
 }
 
-module.exports = FormField;
+export default FormField;

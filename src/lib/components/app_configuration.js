@@ -139,4 +139,4 @@ class AppConfiguration extends Component {
     }
 }
 
-module.exports = AppConfiguration;
+export default AppConfiguration;

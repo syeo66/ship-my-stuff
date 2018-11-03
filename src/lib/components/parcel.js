@@ -107,4 +107,4 @@ class Parcel extends Component {
     }
 }
 
-module.exports = Parcel;
+export default Parcel;

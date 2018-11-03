@@ -58,4 +58,4 @@ class AccountData extends Component {
     }
 }
 
-module.exports = AccountData;
+export default AccountData;

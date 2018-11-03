@@ -40,4 +40,4 @@ class NetworkIndicator extends Component {
     };
 }
 
-module.exports = NetworkIndicator;
+export default NetworkIndicator;

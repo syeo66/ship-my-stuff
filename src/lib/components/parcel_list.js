@@ -141,4 +141,4 @@ class ParcelList extends Component {
     }
 }
 
-module.exports = ParcelList;
+export default ParcelList;

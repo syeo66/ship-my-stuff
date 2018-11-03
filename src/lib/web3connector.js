@@ -4,6 +4,7 @@ import MessageDialog from './message_dialog';
 import ipfsAPI from 'ipfs-api';
 import Web3 from 'web3';
 import TruffleContract from 'truffle-contract';
+import TransportMarketArtifact from '../../build/contracts/TransportMarket.json';
 
 let Web3Connector = {
     web3Provider: null,
@@ -213,7 +214,7 @@ let Web3Connector = {
                 return;
             }
 
-            const TransportMarketArtifact = await import('../../build/contracts/TransportMarket.json');
+            //const TransportMarketArtifact = await import('../../build/contracts/TransportMarket.json');
             Web3Connector.contracts.TransportMarket = TruffleContract(TransportMarketArtifact);
             Web3Connector.contracts.TransportMarket.setProvider(Web3Connector.web3Provider);
             resolve();
@@ -506,6 +507,4 @@ let Web3Connector = {
     }
 };
 
-
-
-module.exports = Web3Connector;
+export default Web3Connector;

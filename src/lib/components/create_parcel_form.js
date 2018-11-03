@@ -127,4 +127,4 @@ class CreateParcelForm extends Component {
     }
 }
 
-module.exports = CreateParcelForm;
+export default CreateParcelForm;
