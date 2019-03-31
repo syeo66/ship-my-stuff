@@ -1,6 +1,6 @@
 {
   "name": "ship-my-stuff",
-  "homepage": "https://ship-my-stuff.com/"
+  "homepage": "https://ship-my-stuff.com/",
   "version": "0.2.0",
   "description": "A peer-to-peer blockchain based supply chain solution.",
   "main": "truffle.js",
