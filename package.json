@@ -32,7 +32,7 @@
   },
   "dependencies": {
     "bootstrap": "^4.3.1",
-    "ipfs-api": "^22.3.0",
+    "ipfs-http-client": "^42.0.0",
     "jquery": "^3.4.1",
     "moment": "^2.24.0",
     "popper.js": "^1.15.0",
