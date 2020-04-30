@@ -1,5 +1,7 @@
 # Ship my stuff
 
+At the moment I do not intend to work on this project. I still think this would be a great idea however I have moved on (which does not mean I might not come back to it).
+
 ## What does it do?
 ### Basic functionality
 **Ship my stuff** is a peer-to-peer delivery service. Think of it as some sort of a decentralized 'Uber for parcels'. The basic intended use would be something along those lines (User **A** - Sender, User **B** - Hauler/Transporter, User **C** - Recipient):
